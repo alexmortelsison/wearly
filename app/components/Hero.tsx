@@ -25,7 +25,7 @@ export default function Hero() {
         <p className="text-gray-100 mt-4 lg:text-2xl text-lg font-semibold w-[90%] mx-auto">
           Redefining streetwear with bold designs and fearless confidence.
           Crafted for trendsetters, inspired by the streets, and made for those
-          who dare to stand out. Wear the look, own the moment.
+          who dare to stand out. Make a statement with every step.
         </p>
         <Link href={"/collection"}>
           <Button
