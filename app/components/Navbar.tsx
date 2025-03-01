@@ -10,6 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 const navlinks = [
   {
@@ -39,6 +41,7 @@ const navlinks = [
 ];
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const pathName = usePathname();
   return (
     <nav className="py-8 justify-between flex items-center sticky top-0 bg-white px-4 lg:px-[350px]">
@@ -61,8 +64,32 @@ export default function Navbar() {
           </div>
         ))}
       </div>
-      <div className="items-center hidden md:flex">
-        <Button variant={"ghost"}>Sign in</Button>
+      <div className="items-center hidden md:flex space-x-2">
+        {!session ? (
+          <Button
+            variant={"ghost"}
+            onClick={() => signIn()}
+            className="hover:cursor-pointer"
+          >
+            Sign in
+          </Button>
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Image
+                src={session.user?.image || ""}
+                alt="photo"
+                width={20}
+                height={20}
+                className="object-cover rounded-full w-8 h-8"
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-white text-center">
+              <Button onClick={() => signOut()}>Logout</Button>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
+
         <Link href={"/cart"}>
           <BsBasket3 size={20} />
         </Link>
@@ -86,7 +113,17 @@ export default function Navbar() {
               </div>
             ))}
             <Separator className="text-black" />
-            <Button variant={"ghost"}>Sign in</Button>
+            {!session ? (
+              <Button
+                variant={"ghost"}
+                onClick={() => signIn()}
+                className="hover:cursor-pointer"
+              >
+                Sign in
+              </Button>
+            ) : (
+              <Button onClick={() => signOut()}>Logout</Button>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
