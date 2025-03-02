@@ -84,7 +84,11 @@ export default function Navbar() {
                 className="object-cover rounded-full w-8 h-8"
               />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white text-center">
+            <DropdownMenuContent className="bg-white text-center px-2">
+              <p className="text-sm font-semibold">{session.user.name}</p>
+              <p className="text-sm text-muted-foreground">
+                {session.user.email}
+              </p>
               <Button onClick={() => signOut()}>Logout</Button>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -122,7 +126,9 @@ export default function Navbar() {
                 Sign in
               </Button>
             ) : (
-              <Button onClick={() => signOut()}>Logout</Button>
+              <div>
+                <Button onClick={() => signOut()}>Logout</Button>
+              </div>
             )}
           </DropdownMenuContent>
         </DropdownMenu>
