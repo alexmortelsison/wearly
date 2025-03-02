@@ -8,10 +8,16 @@ export default function AdminPage() {
   const router = useRouter();
 
   if (status === "loading") return <p>Loading...</p>;
-  if (!session?.user || session.user.role !== "admin") {
+
+  if (!session || session.user.role !== "admin") {
     router.push("/");
     return null;
   }
 
-  return <h1>Welcome, Admin!</h1>;
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+      <p>Welcome, {session.user.email}!</p>
+    </div>
+  );
 }
