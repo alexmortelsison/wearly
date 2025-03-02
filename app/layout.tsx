@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "./components/SessionWrapper";
+import Header from "@/components/Header/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionWrapper>{children}</SessionWrapper>
+        <SessionWrapper>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            {children}
+            <footer className="footer footer-center p-4 bg-base-300 text-base-content">
+              <p>Copyright&copy; Wearly 2025 - All rights reserved.</p>
+            </footer>
+          </div>
+        </SessionWrapper>
       </body>
     </html>
   );
